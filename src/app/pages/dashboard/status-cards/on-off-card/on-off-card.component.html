@@ -1,0 +1,13 @@
+<nb-card (click)="click()" [ngClass]="{'off': !on}">
+    <div class="icon-container">
+        <div class="icon status-{{ card.type }}">
+        <ng-content></ng-content>
+        </div>
+    </div>
+
+    <div class="details">
+        <div class="title h5">{{ card.title }}</div>
+        <div class="status paragraph-2">{{ on ? 'ON' : 'OFF' }}</div>
+    </div>
+</nb-card>
+<nb-icon icon="link-2-outline" pack="eva" class="settings-icon" (click)="openSettingsMenu()"></nb-icon>

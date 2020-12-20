@@ -1,0 +1,24 @@
+import { NbMenuItem } from '@nebular/theme';
+
+export const MENU_ITEMS: NbMenuItem[] = [
+  {
+    title: 'IoT Dashboard',
+    icon: 'home-outline',
+    link: '/pages/iot-dashboard',
+    home: true,
+  },
+  {
+    title: 'Control',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Devices',
+        link: '/pages/control/devices',
+      },
+      {
+        title: 'Status cards',
+        link: '/pages/control/statusCards',
+      },
+    ],
+  },
+];

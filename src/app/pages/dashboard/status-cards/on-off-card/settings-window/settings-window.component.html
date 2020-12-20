@@ -1,0 +1,33 @@
+<nb-card size="small">
+  <nb-card-header>Card Settings</nb-card-header>
+  <nb-card-body>
+
+    <div class="raw">
+        <span>
+            <span>Display Name</span>
+            <input #title nbInput placeholder="{{card.title}}"/>
+        </span>
+    </div>
+    <div class="raw">
+        <span>
+            <span>Device</span>
+            <nb-select #deviceSelector placeholder="{{card.device}}" (selectedChange)="onDeviceSelected($event)" fullWidth>
+                <nb-option *ngFor="let device of allDevices" value="{{device.deviceName}}">{{device.deviceName}}</nb-option>
+            </nb-select>
+        </span>
+    </div>
+    <div class="raw">
+        <span>
+            <span>Device</span>
+            <nb-select #inputSelector placeholder="{{ card.parameter }}" (selectedChange)="onInputSelected($event)" fullWidth>
+                <nb-option *ngFor="let input of allInputs" value="{{input.parameterName}}">{{input.parameterName}}</nb-option>
+            </nb-select>
+        </span>
+    </div>
+
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="cancel" nbButton status="danger" (click)="cancel()">Cancel</button>
+    <button nbButton status="success" (click)="submit(title.value)">Submit</button>
+  </nb-card-footer>
+</nb-card>

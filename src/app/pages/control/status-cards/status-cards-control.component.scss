@@ -1,0 +1,62 @@
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 5.75rem;
+        height: 4.75rem;
+        font-size: 3.75rem;
+        border-radius: nb-theme(card-border-radius);
+        transition: width 0.4s ease;
+        transform: translate3d(0, 0, 0);
+        -webkit-transform-style: preserve-3d;
+        -webkit-backface-visibility: hidden;
+    }
+
+
+    .icon_chooseType {
+        @extend .icon;
+        color: nb-theme(text-control-color);
+        @each $status in nb-get-statuses() {
+        &.status-#{$status} {
+                $left-color: nb-theme(button-hero-#{$status}-left-background-color);
+                $right-color: nb-theme(button-hero-#{$status}-right-background-color);
+                background-image: linear-gradient(to right, $left-color, $right-color);
+
+                &:hover {
+                $left-hover-color: nb-theme(button-hero-#{$status}-hover-left-background-color);
+                $right-hover-color: nb-theme(button-hero-#{$status}-hover-right-background-color);
+                background-image: linear-gradient(to right, $left-hover-color, $right-hover-color);
+                }
+            }
+        }
+     }
+
+    .step-content {
+        //text-align: center;
+        button {
+          cursor: pointer;
+          margin-right: 0.5rem;
+        }
+    }
+
+    .label-input {
+
+        label {
+          width: 200px;
+        }
+        input {
+          display: inline-block;
+          margin: 0.5rem;
+          width: 200px;
+        }
+        nb-select {
+          display: inline-block;
+          margin: 0.5rem;
+          width: 200px;
+        }
+      }
+}

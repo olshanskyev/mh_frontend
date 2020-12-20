@@ -1,0 +1,128 @@
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+    <nb-card-header>On/Off cards</nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table [settings]="onOffCardsSettings" [source]="onOffCardsSource" (edit)="onEdit($event)" (delete)="onDelete($event)" >
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>
+
+
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+    <nb-card-header>
+      Add a new On/Off card
+    </nb-card-header>
+
+    <nb-card-body>
+      <nb-stepper #stepper orientation="horizontal" [linear]=true>
+        <nb-step [stepControl]="iconForm" label="Select icon" class="step-content">
+            <form #iconForm="ngForm" class="step-content">
+                <div class="row">
+                    <nb-card class="col-md-6" size="small">
+                        <nb-card-header>Select icon</nb-card-header>
+                        <nb-card-body>
+                        <nb-radio-group [(value)]="selectedIcon" ngModel name="chooseIcon" #chooseIcon="ngModel">
+                            <nb-radio *ngFor="let itemIcon of iconList" [value]="itemIcon" [name]="itemIcon">
+                                <div class="icon">
+                                    <i [ngClass]="itemIcon"></i>
+                                </div>
+                            </nb-radio>
+                        </nb-radio-group>
+                        </nb-card-body>
+                    </nb-card>
+                    <nb-card size="small" class="col-md-6">
+                        <nb-card-header>Select color</nb-card-header>
+                        <nb-card-body>
+                            <nb-radio-group [(value)]="selectedType" ngModel name="chooseType" #chooseType="ngModel">
+                                <nb-radio *ngFor="let itemType of typeList" [value]="itemType" [name]="itemType">
+                                    <div class="icon_chooseType status-{{ itemType }}">
+                                        <i [ngClass]="selectedIcon"></i>
+                                    </div>
+                                </nb-radio>
+                            </nb-radio-group>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
+              <button class="navigationButton" nbButton nbStepperNext [disabled] = "selectedIcon == null || selectedType == null">next</button>
+            </form>
+        </nb-step>
+        <nb-step [stepControl]="deviceForm" label="Device" class="step-content">
+            <form #deviceForm="ngForm" class="step-content">
+
+                <div class="label-input">
+
+                    <label for="title">Title:</label>
+                    <input type="text"
+                            placeholder="Title"
+                            class="form-control"
+                            name="title"
+                            id="title"
+                            required
+                            minlength="1"
+                            nbInput
+                            ngModel
+                            #title="ngModel"
+                            [status]="(title.invalid) ? 'danger' : 'basic'">
+                </div>
+
+                <div class="label-input">
+                    <label for="deviceSelector">Device:</label>
+                    <nb-select  #deviceSelector (selectedChange)="onDeviceSelected($event)"
+                                placeholder="Select device"
+                                name="deviceSelector"
+                                id="deviceSelector"
+                                nbSelect
+                                ngModel
+                                [status]="(selectedDevice == null) ? 'danger' : 'basic'">
+                        <nb-option *ngFor="let device of allDevices" value="{{device.name}}">{{device.name}}</nb-option>
+                    </nb-select>
+                </div>
+
+
+                <div class="label-input">
+                    <label for="parameterSelector">Parameter:</label>
+                    <nb-select  #parameterSelector [(selected)]="selectedParameter"
+                                placeholder="Select parameter"
+                                name="parameterSelector"
+                                id="parameterSelector"
+                                nbSelect
+                                ngModel
+                                [status]="(selectedParameter == null) ? 'danger' : 'basic'">
+                        <nb-option *ngFor="let parameter of allParameters" value="{{parameter.name}}">{{parameter.name}}</nb-option>
+                    </nb-select>
+                </div>
+
+
+                <div class="label-input">
+                    <label for="commandSelector">Command:</label>
+                    <nb-select  #commandSelector [(selected)]="selectedCommand"
+                                placeholder="Select command"
+                                name="commandSelector"
+                                id="commandSelector"
+                                nbSelect
+                                ngModel
+                                [status]="(selectedCommand == null) ? 'danger' : 'basic'">
+                        <nb-option *ngFor="let command of allCommands" value="{{command.command}}">{{command.command}}</nb-option>
+                    </nb-select>
+                </div>
+
+                <div class="label-input">
+                    <label for="roomSelector">Room:</label>
+                    <nb-select  #roomSelector [(selected)]="selectedRoomId"
+                                placeholder="Select room"
+                                name="roomSelector"
+                                id="roomSelector"
+                                nbSelect
+                                ngModel
+                                [status]="(selectedRoomId == null) ? 'danger' : 'basic'">
+                        <nb-option *ngFor="let room of allRooms" value="{{room.id}}">{{room.name}}</nb-option>
+                    </nb-select>
+                </div>
+
+                <button class="navigationButton" nbButton nbStepperPrevious>prev</button>
+                <button class="navigationButton" nbButton type="submit" [disabled] = "title.invalid || selectedDevice == null || selectedParameter == null || selectedCommand == null || selectedRoomId == null"
+                (click)="createCard(title.value); stepper.reset()">Create Card</button>
+            </form>
+        </nb-step>
+      </nb-stepper>
+    </nb-card-body>
+</nb-card>

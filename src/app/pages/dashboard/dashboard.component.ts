@@ -100,7 +100,7 @@ export class DashboardComponent implements OnDestroy {
         this.breakpoint = newValue;
       });
 
-    this.selectRoom('1');
+    this.selectRoom(1);
   }
 
   ngOnDestroy() {
@@ -109,7 +109,7 @@ export class DashboardComponent implements OnDestroy {
 
   currentRoomTitle: string;
 
-  selectRoom(roomNumber) {
+  selectRoom(roomNumber: number) {
       this.roomService.getAllRooms().subscribe(rooms => {
         this.currentRoomTitle = rooms.filter(item => item.id === roomNumber)[0].name;
       });

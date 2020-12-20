@@ -9,15 +9,23 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Control',
-    icon: 'layout-outline',
+    icon: 'settings-outline',
     children: [
       {
         title: 'Devices',
+        icon: 'hard-drive-outline',
         link: '/pages/control/devices',
       },
       {
         title: 'Status cards',
-        link: '/pages/control/statusCards',
+        icon: 'archive-outline',
+        children: [
+          {
+          title: 'On/Off cards',
+          icon: 'credit-card-outline',
+          link: '/pages/control/statusCards/onOffCards',
+          },
+        ],
       },
     ],
   },

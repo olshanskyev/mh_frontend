@@ -21,7 +21,7 @@ export class OnOffCardComponent implements OnInit {
 
   ngOnInit() {
     this.getStatus(); // first time
-    interval(3000).subscribe(val => { // run every 3 second
+    interval(5000).subscribe(val => { // run every 5 second
         this.getStatus();
      });
   }

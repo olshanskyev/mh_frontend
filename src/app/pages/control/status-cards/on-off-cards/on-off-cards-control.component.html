@@ -1,7 +1,7 @@
 <nb-card class="col-md-12 col-lg-12 col-xxxl-12">
     <nb-card-header>On/Off cards</nb-card-header>
     <nb-card-body>
-        <ng2-smart-table [settings]="onOffCardsSettings" [source]="onOffCardsSource" (edit)="onEdit($event)" (delete)="onDelete($event)" >
+        <ng2-smart-table [settings]="onOffCardsSettings" [source]="onOffCardsSource" (edit)="onEdit($event)" (deleteConfirm)="onDeleteConfirm($event)" >
         </ng2-smart-table>
     </nb-card-body>
 </nb-card>
@@ -13,7 +13,7 @@
     </nb-card-header>
 
     <nb-card-body>
-      <nb-stepper #stepper orientation="horizontal" [linear]=true>
+      <nb-stepper #stepper orientation="horizontal" [disableStepNavigation]="true">
         <nb-step [stepControl]="iconForm" label="Select icon" class="step-content">
             <form #iconForm="ngForm" class="step-content">
                 <div class="row">
@@ -66,14 +66,14 @@
 
                 <div class="label-input">
                     <label for="deviceSelector">Device:</label>
-                    <nb-select  #deviceSelector (selectedChange)="onDeviceSelected($event)"
+                    <nb-select  #deviceSelector (selectedChange)="onDeviceSelected($event); parameterSelector.reset(); commandSelector.reset()"
                                 placeholder="Select device"
                                 name="deviceSelector"
                                 id="deviceSelector"
                                 nbSelect
                                 ngModel
                                 [status]="(selectedDevice == null) ? 'danger' : 'basic'">
-                        <nb-option *ngFor="let device of allDevices" value="{{device.name}}">{{device.name}}</nb-option>
+                        <nb-option *ngFor="let device of allDevices" value="{{device.name}}">{{device.name}} ({{device.type}})</nb-option>
                     </nb-select>
                 </div>
 

@@ -10,7 +10,7 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { ControlComponent } from './control.component';
 import { ControlRoutingModule } from './control-routing.module';
 import { DeviceControlComponent } from './device/device-control.component';
-import { StatusCardsControlComponent } from './status-cards/status-cards-control.component';
+import { OnOffCardsControlComponent } from './status-cards/on-off-cards/on-off-cards-control.component';
 import { FormsModule } from '@angular/forms';
 import { LinksRenderComponent } from './device/links-render.component';
 
@@ -35,7 +35,7 @@ import { LinksRenderComponent } from './device/links-render.component';
   declarations: [
     ControlComponent,
     DeviceControlComponent,
-    StatusCardsControlComponent,
+    OnOffCardsControlComponent,
     LinksRenderComponent,
   ],
   providers: [

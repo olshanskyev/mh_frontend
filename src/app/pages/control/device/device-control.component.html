@@ -9,7 +9,7 @@
 <nb-card>
     <nb-card-header>Used Devices</nb-card-header>
     <nb-card-body>
-        <ng2-smart-table [settings]="settingsUsedDevices" [source]="sourceUsedDevices">
+        <ng2-smart-table [settings]="settingsUsedDevices" [source]="sourceUsedDevices" (deleteConfirm)="onDeleteConfirm($event)">
         </ng2-smart-table>
     </nb-card-body>
 </nb-card>

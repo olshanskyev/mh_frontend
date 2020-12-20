@@ -54,10 +54,13 @@ export class DeviceControlComponent implements OnInit {
   };
 
   settingsUsedDevices = {
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: true,
+    },
     actions: {
       add: false,
       edit: false,
-      delete: false,
     },
     columns: {
       name: {
@@ -70,8 +73,8 @@ export class DeviceControlComponent implements OnInit {
         type: 'string',
         editable: false,
       },
-      ip: {
-        title: 'ip',
+      firmware: {
+        title: 'Firmware version',
         type: 'string',
         editable: false,
       },
@@ -79,41 +82,59 @@ export class DeviceControlComponent implements OnInit {
   };
 
   saveUsedDevice(device: Device) {
-    this.deviceService.saveAsUsedDevice(device).subscribe(savedDevice => {
-      // ToDo not tested
-      this.sourceUsedDevices.add(savedDevice);
+
+    const devicesPromise: Promise<Device[]> = this.sourceUsedDevices.getAll();
+    devicesPromise.then(devices => {
+        const foundDevices: Device[] = devices.filter(item => item.name === device.name);
+        if (foundDevices != null && foundDevices.length > 0) { // already exists
+          this.toaster.showToast(this.toaster.types[3], 'Warning', 'Device ' + device.name + ' already in use');
+        } else {
+          this.deviceService.saveAsUsedDevice(device).subscribe(savedDevice => {
+            this.sourceUsedDevices.add(savedDevice);
+            this.sourceUsedDevices.refresh();
+          });
+        }
     });
+
+
   }
   constructor(private themeService: NbThemeService, private deviceService: DeviceService,
      toastrService: NbToastrService) {
     this.themeService.getJsTheme()
       .subscribe(theme => {
-    }, err => {
-        this.toaster.showToast(this.toaster.types[4], 'Error', `${err.error}. Error code: ${err.status}`);
     });
     this.toaster = new Toaster(toastrService);
 
   }
   ngOnInit(): void {
     this.getOnlineDevices();  // first time
-    interval(3000).subscribe(val => { // run every 3 second
+    interval(10000).subscribe(val => { // run every 10 second
         this.getOnlineDevices();
      });
     this.deviceService.getUsedDevices().subscribe(devices => {
-      this.sourceUsedDevices.load(devices);
+        this.sourceUsedDevices.load(devices);
     });
   }
 
-  private intervalToasterShowed: boolean = false;
   getOnlineDevices() {
     this.deviceService.getOnlineDevices().
     subscribe(devices => {
         this.sourceOnlineDevices.load(devices);
-    }, err => {
-      if (!this.intervalToasterShowed) // ToDo not tested
-        this.toaster.showToast(this.toaster.types[4], 'Error', `${err.error}. Error code: ${err.status}`);
-      this.intervalToasterShowed = true;
     });
+  }
+
+  onDeleteConfirm(event): void {
+    if (window.confirm('Remove device ' + event.data.name + ' from used devices?')) {
+      this.deviceService.deleteDevice(event.data.name).subscribe(() => {
+        event.confirm.resolve();
+        this.toaster.showToast(this.toaster.types[1], 'Info', 'Device removed');
+      },
+      () => {
+        event.confirm.reject();
+      });
+
+
+    }
   }
 
 

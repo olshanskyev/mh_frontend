@@ -1,25 +1,21 @@
 import {Component} from '@angular/core';
-import { NbThemeService } from '@nebular/theme';
+import { NbThemeService, NbToastrService } from '@nebular/theme';
 import { LocalDataSource } from 'ng2-smart-table';
-import { DeviceService } from '../../../@core/service/DeviceService';
-import { RoomService } from '../../../@core/service/RoomService';
+import { DeviceService } from '../../../../@core/service/DeviceService';
+import { RoomService } from '../../../../@core/service/RoomService';
+import { Toaster } from '../../../Toaster';
 
 @Component({
-  selector: 'ngx-status-cards-control',
-  styleUrls: ['./status-cards-control.component.scss'],
-  templateUrl: './status-cards-control.component.html',
+  selector: 'ngx-on-off-cards-control',
+  styleUrls: ['./on-off-cards-control.component.scss'],
+  templateUrl: './on-off-cards-control.component.html',
 })
-export class StatusCardsControlComponent {
+export class OnOffCardsControlComponent {
 
   onOffCardsSettings = {
     actions: {
       add: false,
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-      confirmSave: true,
+      edit: false,
     },
     delete: {
       deleteButtonContent: '<i class="nb-trash"></i>',
@@ -31,8 +27,13 @@ export class StatusCardsControlComponent {
         type: 'string',
         editable: false,
       },
-      icon: {
-        title: 'Type',
+      iconClass: {
+        title: 'icon',
+        type: 'string',
+        editable: false,
+      },
+      type: {
+        title: 'type',
         type: 'string',
         editable: false,
       },
@@ -57,13 +58,21 @@ export class StatusCardsControlComponent {
   onOffCardsSource: LocalDataSource = new LocalDataSource();
   private allDevices: Device[] = [];
 
-  constructor(private themeService: NbThemeService, private deviceService: DeviceService,
-    private roomService: RoomService) {
+  toaster: Toaster;
+  constructor(private themeService: NbThemeService,
+    private deviceService: DeviceService,
+    private roomService: RoomService, toastrService: NbToastrService) {
+
+      this.toaster = new Toaster(toastrService);
     this.themeService.getJsTheme()
       .subscribe(theme => {
     });
 
-    this.deviceService.getOnlineDevices().
+    this.deviceService.getOnOffCards().subscribe(cards => {
+      this.onOffCardsSource.load(cards);
+    });
+
+    this.deviceService.getUsedDevices().
       subscribe(devices => {
       this.allDevices = devices;
     });
@@ -102,9 +111,24 @@ export class StatusCardsControlComponent {
       command: this.selectedCommand,
       roomId: this.selectedRoomId,
     };
-    this.deviceService.saveOnOffCard(card).subscribe(item => {
-
+    this.deviceService.saveOnOffCard(card).subscribe(cardItem => {
+      this.onOffCardsSource.add(cardItem);
+      this.onOffCardsSource.refresh();
     });
+  }
+
+  onDeleteConfirm(event): void {
+    if (window.confirm('Remove card ' + event.data.title + '?')) {
+      this.deviceService.removeOnOffCard(event.data.id).subscribe(() => {
+        event.confirm.resolve();
+        this.toaster.showToast(this.toaster.types[1], 'Info', 'Card removed');
+      },
+      () => {
+        event.confirm.reject();
+      });
+
+
+    }
   }
 
   typeList: string[] = [
@@ -116,9 +140,20 @@ export class StatusCardsControlComponent {
   ];
 
   iconList: string[] = [
+    'nb-lightbulb',
     'nb-audio',
     'nb-coffee-maker',
-    'nb-lightbulb',
+    'nb-danger',
+    'nb-flame-circled',
+    'nb-home',
+    'nb-locked',
+    'nb-drop',
+    'nb-gear',
+    'nb-power-circled',
+    'nb-power',
+    'nb-roller-shades',
+    'nb-notifications',
+    'nb-volume-high',
     'nb-alert',
     'nb-angle-double-left',
     'nb-angle-double-right',
@@ -151,24 +186,17 @@ export class StatusCardsControlComponent {
     'nb-cloudy',
     'nb-collapse',
     'nb-compose',
-    'nb-danger',
-    'nb-drop',
     'nb-drops',
     'nb-e-commerce',
     'nb-edit',
     'nb-email',
-    'nb-expand',
-    'nb-flame-circled',
     'nb-fold',
-    'nb-gear',
     'nb-grid-a-outline',
     'nb-grid-a',
     'nb-grid-b-outline',
     'nb-grid-b',
     'nb-heart',
     'nb-help',
-    'nb-home',
-    'nb-info',
     'nb-keypad',
     'nb-layout-centre',
     'nb-layout-default',
@@ -178,13 +206,11 @@ export class StatusCardsControlComponent {
     'nb-layout-two-column',
     'nb-list',
     'nb-location',
-    'nb-locked',
     'nb-loop-circled',
     'nb-loop',
     'nb-maximize',
     'nb-menu',
     'nb-minimize',
-    'nb-notifications',
     'nb-paper-plane',
     'nb-partlysunny',
     'nb-pause-outline',
@@ -195,10 +221,7 @@ export class StatusCardsControlComponent {
     'nb-play',
     'nb-plus-circled',
     'nb-plus',
-    'nb-power-circled',
-    'nb-power',
     'nb-rainy',
-    'nb-roller-shades',
     'nb-search',
     'nb-shuffle',
     'nb-skip-backward-outline',
@@ -214,7 +237,6 @@ export class StatusCardsControlComponent {
     'nb-tables',
     'nb-title',
     'nb-trash',
-    'nb-volume-high',
     'nb-volume-mute',
   ];
 }

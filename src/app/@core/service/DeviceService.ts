@@ -32,8 +32,13 @@ export class DeviceService extends DeviceServiceInterface {
 
   }
 
+  getOnOffCards(): Observable<OnOffCard[]> {
+    const _endpoint = this.uri + '/onOffCards';
+    return this._http.get<OnOffCard[]>(_endpoint);
+  }
+
   getOnOffCardsByRoom(roomId: number): Observable<OnOffCard[]> {
-    const _endpoint = this.uri + '/onOffCard/' + roomId;
+    const _endpoint = this.uri + '/onOffCards/' + roomId;
     return this._http.get<OnOffCard[]>(_endpoint);
   }
 
@@ -52,5 +57,14 @@ export class DeviceService extends DeviceServiceInterface {
     return this._http.get<Device[]>(_endpoint);
   }
 
+  deleteDevice(deviceName: string): Observable<void> {
+    const _endpoint = this.uri + '/usedDevices/' + deviceName;
+    return this._http.delete<void>(_endpoint);
+  }
+
+  removeOnOffCard(id: number): Observable<void> {
+    const _endpoint = this.uri + '/onOffCards/' + id;
+    return this._http.delete<void>(_endpoint);
+  }
 
 }

@@ -1,4 +1,4 @@
-@import '../../../@theme/styles/themes';
+@import '../../../../@theme/styles/themes';
 
 @include nb-install-component() {
 
@@ -51,12 +51,12 @@
         input {
           display: inline-block;
           margin: 0.5rem;
-          width: 200px;
+          width: 400px;
         }
         nb-select {
           display: inline-block;
           margin: 0.5rem;
-          width: 200px;
+          width: 400px;
         }
       }
 }

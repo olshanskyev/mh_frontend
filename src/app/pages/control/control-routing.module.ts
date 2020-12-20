@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ControlComponent } from './control.component';
 import { DeviceControlComponent } from './device/device-control.component';
-import { StatusCardsControlComponent } from './status-cards/status-cards-control.component';
+import { OnOffCardsControlComponent } from './status-cards/on-off-cards/on-off-cards-control.component';
 
 
 const routes: Routes = [{
@@ -14,8 +14,8 @@ const routes: Routes = [{
       component: DeviceControlComponent,
     },
     {
-      path: 'statusCards',
-      component: StatusCardsControlComponent,
+      path: 'statusCards/onOffCards',
+      component: OnOffCardsControlComponent,
     },
   ],
 }];
@@ -26,3 +26,4 @@ const routes: Routes = [{
 })
 export class ControlRoutingModule {
 }
+

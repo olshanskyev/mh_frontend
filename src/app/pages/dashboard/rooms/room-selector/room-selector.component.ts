@@ -38,7 +38,7 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
     ],
     rooms: [
       {
-        id: '1',
+        id: 1,
         name: { text: 'Гостиная', x: 345, y: 300 },
         area: { d: 'M178,370h340a6.09,6.09,0,0,0,6.09-6.09v-232' +
                   'h-342Z'},
@@ -46,13 +46,13 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
         '             m-245,0h-93.1' },
       },
       {
-        id: '2',
+        id: 2,
         name: { text: 'Кухня', x: 400, y: 90 },
         area: { d: 'M522.18,130v-86a6.09,6.09,0,0,0,-6.09-6.09h-228v90Z'},
         border: { d: 'M522.18,130v-86a6.09,6.09,0,0,0,-6.09-6.09h-230v85' },
       },
       {
-        id: '3',
+        id: 3,
         name: { text: 'Тамбур', x: 80, y: 280 },
         area: { d: 'M150,320h26.09v-86.09a6.09,6.09,0,0,0,-6.09-6.09h-180' +
                      'a6.09,6.09,0,0,0,-6.09,6.09v80a6.09,6.09,0,0,0,6.09,6.09h160Z'},
@@ -60,7 +60,7 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
                      'a6.09,6.09,0,0,0,-6.09,6.09v80a6.09,6.09,0,0,0,6.09,6.09h110' },
       },
       {
-        id: '4',
+        id: 4,
         name: { text: 'С/У', x: 205, y: 90 },
         area: { d: 'M184,128h95a6.09,6.09,0,0,0,6.09-6.09v-86.09h-157.18' +
                       'v90h66.09Z'},
@@ -68,7 +68,7 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
                       'v36.09m0,40v16.09h16.09' },
       },
       {
-        id: '5',
+        id: 5,
         name: { text: 'Котельная', x: 60, y: 90 },
         area: { d: 'M128.8,130v-92.18h-138.09' +
                      'a6.09,6.09,0,0,0,-6.09,6.09v80a6.09,6.09,0,0,0,6.09,6.09h140Z'},
@@ -95,7 +95,7 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
     private breakpointService: NbMediaBreakpointsService,
   ) {
 
-    this.selectRoom('1');
+    this.selectRoom(1);
 
     this.breakpoints = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
@@ -133,7 +133,7 @@ export class RoomSelectorComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectRoom(roomNumber) {
+  selectRoom(roomNumber: number) {
     this.select.emit(roomNumber);
     this.selectedRoom = roomNumber;
     this.sortRooms();

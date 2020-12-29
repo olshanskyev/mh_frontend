@@ -48,6 +48,49 @@ export class DashboardComponent implements OnDestroy {
     command: 'TOGGLE',
     roomId: 0,
   };
+
+  displayValueCards: DisplayValueCard[] = [
+  {
+    id: 0,
+    title: 'ТЕМПЕРАТУРА ' + '\u2103',
+    iconClass: 'nb-cloudy',
+    type: 'danger',
+    device: 'MeteoStation000001',
+    parameter: 'TEMPERATURE',
+    roomId: 0
+  },
+  {
+    id: 1,
+    title: 'ВЛАЖНОСТЬ %',
+    iconClass: 'nb-drop',
+    type: 'info',
+    device: 'MeteoStation000001',
+    parameter: 'HUMIDITY',
+    roomId: 0
+  },
+  {
+    id: 2,
+    title: 'ДАВЛЕНИЕ мм.р.ст.',
+    iconClass: 'nb-bar-chart',
+    type: 'success',
+    device: 'MeteoStation000001',
+    parameter: 'PRESSURE',
+    roomId: 0
+  },
+  {
+    id: 2,
+    title: 'ОСВЕЩЕННОСТЬ',
+    iconClass: 'nb-sunny',
+    type: 'warning',
+    device: 'MeteoStation000001',
+    parameter: 'LIGHT',
+    roomId: 0
+  },
+];
+  
+
+
+
   themeName: string;
   commonCards: string;
   roomCards: OnOffCard[];

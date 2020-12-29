@@ -22,6 +22,7 @@ import { RoomSelectorComponent } from './rooms/room-selector/room-selector.compo
 import { PlayerComponent } from './rooms/player/player.component';
 import { FormsModule } from '@angular/forms';
 import { SettingsWindowComponent } from './status-cards/on-off-card/settings-window/settings-window.component';
+import { DisplayValueCardComponent } from './status-cards/display-value-card/display-value-card.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { SettingsWindowComponent } from './status-cards/on-off-card/settings-win
   declarations: [
     DashboardComponent,
     OnOffCardComponent,
+    DisplayValueCardComponent,
     RoomSelectorComponent,
     RoomsComponent,
     PlayerComponent,

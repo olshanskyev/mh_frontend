@@ -5,6 +5,11 @@
       <i [ngClass]="commonCard.iconClass"></i>
     </ngx-on-off-card>
   </div>
+  <div class="col-xxl-4 col-md-6" *ngFor="let displayCard of displayValueCards">
+    <ngx-display-value-card [card]="displayCard">
+      <i [ngClass]="displayCard.iconClass"></i>
+    </ngx-display-value-card>
+  </div>  
 </div>
 
 <div class="row">

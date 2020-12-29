@@ -56,7 +56,7 @@ export class OnOffCardsControlComponent {
   };
 
   onOffCardsSource: LocalDataSource = new LocalDataSource();
-  private allDevices: Device[] = [];
+  allDevices: Device[] = [];
 
   toaster: Toaster;
   constructor(private themeService: NbThemeService,
@@ -93,12 +93,12 @@ export class OnOffCardsControlComponent {
     this.allCommands = foundDevice.commands;
   }
 
-  private selectedIcon: string = null;
-  private selectedType: string = null;
-  private selectedDevice: string = null;
-  private selectedParameter: string = null;
-  private selectedCommand: string = null;
-  private selectedRoomId: number = null;
+  selectedIcon: string = null;
+  selectedType: string = null;
+  selectedDevice: string = null;
+  selectedParameter: string = null;
+  selectedCommand: string = null;
+  selectedRoomId: number = null;
 
   createCard(title: string) {
     const card: OnOffCard = {

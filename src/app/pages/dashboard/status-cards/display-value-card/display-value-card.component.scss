@@ -39,7 +39,8 @@
           }
         }
       }
-    } 
+    }
+
     &.off {
       color: nb-theme(text-hint-color);
 
@@ -55,7 +56,7 @@
           background-image: linear-gradient(to right, transparent, transparent);
         }
       }
-    }   
+    }
 
     .details {
       display: flex;

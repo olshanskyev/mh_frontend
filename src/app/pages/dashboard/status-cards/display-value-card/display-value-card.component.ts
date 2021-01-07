@@ -11,7 +11,7 @@ import { interval } from 'rxjs';
 export class DisplayValueCardComponent implements OnInit {
 
   @Input() card: DisplayValueCard;
-  value: string = "NO_DATA";
+  value: string = 'NO_DATA';
   on: boolean = false;
 
   constructor(private deviceService: DeviceService) {

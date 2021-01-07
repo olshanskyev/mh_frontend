@@ -57,7 +57,7 @@ export class DashboardComponent implements OnDestroy {
     type: 'danger',
     device: 'MeteoStation000001',
     parameter: 'TEMPERATURE',
-    roomId: 0
+    roomId: 0,
   },
   {
     id: 1,
@@ -66,7 +66,7 @@ export class DashboardComponent implements OnDestroy {
     type: 'info',
     device: 'MeteoStation000001',
     parameter: 'HUMIDITY',
-    roomId: 0
+    roomId: 0,
   },
   {
     id: 2,
@@ -75,7 +75,7 @@ export class DashboardComponent implements OnDestroy {
     type: 'success',
     device: 'MeteoStation000001',
     parameter: 'PRESSURE',
-    roomId: 0
+    roomId: 0,
   },
   {
     id: 2,
@@ -84,10 +84,10 @@ export class DashboardComponent implements OnDestroy {
     type: 'warning',
     device: 'MeteoStation000001',
     parameter: 'LIGHT',
-    roomId: 0
+    roomId: 0,
   },
 ];
-  
+
 
 
 

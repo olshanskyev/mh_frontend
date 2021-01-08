@@ -68,7 +68,7 @@ export class OnOffCardsControlComponent {
 
   convertIntoTableView(onOffCard: OnOffCard): any {
     return {
-      room: this.roomService.getRoomNameById(onOffCard.roomId), //getRoomById
+      room: this.roomService.getRoomNameById(onOffCard.roomId),
       ...onOffCard,
     };
   }
@@ -85,7 +85,7 @@ export class OnOffCardsControlComponent {
     this.deviceService.getOnOffCards().pipe(map(items => {
       return items.map(item => {
         return this.convertIntoTableView(item);
-      })
+      });
     })).subscribe(cards => {
       this.onOffCardsSource.load(cards);
     });

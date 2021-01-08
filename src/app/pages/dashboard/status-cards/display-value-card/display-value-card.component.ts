@@ -17,7 +17,7 @@ export class DisplayValueCardComponent implements OnInit, OnDestroy {
 
   private toaster: Toaster;
 
-  constructor(private deviceService: DeviceService, private toastrService: NbToastrService) {
+  constructor(private deviceService: DeviceService, toastrService: NbToastrService) {
     this.toaster = new Toaster(toastrService);
   }
 

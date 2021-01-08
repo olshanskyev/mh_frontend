@@ -18,7 +18,8 @@ export class OnOffCardComponent implements OnInit, OnDestroy {
 
   private toaster: Toaster;
 
-  constructor(private deviceService: DeviceService, private dialogService: NbDialogService, private toastrService: NbToastrService) {
+  constructor(private deviceService: DeviceService, private dialogService: NbDialogService,
+    toastrService: NbToastrService) {
     this.toaster = new Toaster(toastrService);
   }
 

@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { NbThemeService, NbToastrService } from '@nebular/theme';
 import { LocalDataSource } from 'ng2-smart-table';
 import { DeviceService } from '../../../@core/service/DeviceService';
-import { interval } from 'rxjs';
 import { LinksRenderComponent } from './links-render.component';
 import { Toaster } from '../../Toaster';
 
@@ -11,7 +10,7 @@ import { Toaster } from '../../Toaster';
   styleUrls: ['./device-control.component.scss'],
   templateUrl: './device-control.component.html',
 })
-export class DeviceControlComponent implements OnInit {
+export class DeviceControlComponent implements OnInit, OnDestroy {
 
   sourceOnlineDevices: LocalDataSource = new LocalDataSource();
   sourceUsedDevices: LocalDataSource = new LocalDataSource();
@@ -106,11 +105,17 @@ export class DeviceControlComponent implements OnInit {
     this.toaster = new Toaster(toastrService);
 
   }
+
+
+  getOnlineDevicesTimer: NodeJS.Timer;
+
+  ngOnDestroy(): void {
+    clearInterval(this.getOnlineDevicesTimer);
+  }
+
   ngOnInit(): void {
     this.getOnlineDevices();  // first time
-    interval(10000).subscribe(val => { // run every 10 second
-        this.getOnlineDevices();
-     });
+    this.getOnlineDevicesTimer = setInterval(() => this.getOnlineDevices(), 10000);
     this.deviceService.getUsedDevices().subscribe(devices => {
         this.sourceUsedDevices.load(devices);
     });

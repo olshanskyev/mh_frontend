@@ -63,11 +63,11 @@ const appInitializerFn = (appConfig: AppConfigService) => {
       multi: true,
       deps: [AppConfigService],
     },
-    {
+    /*{
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorsInterceptor,
       multi: true,
-    },
+    },*/
 
   ],
   bootstrap: [AppComponent],

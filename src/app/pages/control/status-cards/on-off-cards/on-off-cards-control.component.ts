@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import { NbThemeService, NbToastrService } from '@nebular/theme';
 import { LocalDataSource } from 'ng2-smart-table';
+import { map } from 'rxjs/operators';
 import { DeviceService } from '../../../../@core/service/DeviceService';
 import { RoomService } from '../../../../@core/service/RoomService';
 import { Toaster } from '../../../Toaster';
@@ -24,6 +25,11 @@ export class OnOffCardsControlComponent {
     columns: {
       title: {
         title: 'Title',
+        type: 'string',
+        editable: false,
+      },
+      room: {
+        title: 'Room',
         type: 'string',
         editable: false,
       },
@@ -59,6 +65,14 @@ export class OnOffCardsControlComponent {
   allDevices: Device[] = [];
 
   toaster: Toaster;
+
+  convertIntoTableView(onOffCard: OnOffCard): any {
+    return {
+      room: this.roomService.getRoomNameById(onOffCard.roomId), //getRoomById
+      ...onOffCard,
+    };
+  }
+
   constructor(private themeService: NbThemeService,
     private deviceService: DeviceService,
     private roomService: RoomService, toastrService: NbToastrService) {
@@ -68,7 +82,11 @@ export class OnOffCardsControlComponent {
       .subscribe(theme => {
     });
 
-    this.deviceService.getOnOffCards().subscribe(cards => {
+    this.deviceService.getOnOffCards().pipe(map(items => {
+      return items.map(item => {
+        return this.convertIntoTableView(item);
+      })
+    })).subscribe(cards => {
       this.onOffCardsSource.load(cards);
     });
 
@@ -112,7 +130,7 @@ export class OnOffCardsControlComponent {
       roomId: this.selectedRoomId,
     };
     this.deviceService.saveOnOffCard(card).subscribe(cardItem => {
-      this.onOffCardsSource.add(cardItem);
+      this.onOffCardsSource.add(this.convertIntoTableView(cardItem));
       this.onOffCardsSource.refresh();
     });
   }

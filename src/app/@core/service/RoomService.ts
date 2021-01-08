@@ -32,9 +32,12 @@ export class RoomService extends RoomServiceInterface {
     },
   ];
 
-
   getAllRooms(): Observable<Room[]> {
     return of(this.rooms);
+  }
+
+  getRoomNameById(id: number): string {
+    return this.rooms.find(item => item.id === id).name;
   }
 
 

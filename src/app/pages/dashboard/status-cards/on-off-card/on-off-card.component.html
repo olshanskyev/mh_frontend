@@ -1,5 +1,5 @@
-<nb-card (click)="click()" [ngClass]="{'off': !on}">
-    <div class="icon-container">
+<nb-card [ngClass]="{'off': !on}">
+    <div class="icon-container" (click)="click()">
         <div class="icon status-{{ card.type }}">
         <ng-content></ng-content>
         </div>

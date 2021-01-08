@@ -23,9 +23,9 @@ export class ErrorsInterceptor implements HttpInterceptor {
                 if (err.status <= 0) { // connection refused
                   this.toaster.showToast(this.toaster.types[4],
                     'Error', 'Server communication error. Connection refused');
-                } else { // all errors
+                } /* else { // all errors
                   this.toaster.showToast(this.toaster.types[4], 'Error', `${err.error}. Error code: ${err.status}`);
-                }
+                }*/
                 return next.handle(req);
             }),
             retry(0));
